@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace DependencyAnalyser.Services
@@ -74,6 +78,20 @@ namespace DependencyAnalyser.Services
             }
 
             _fileList.AddRange(Directory.GetFiles(root, pattern).ToList());
+        }
+
+        public async Task<bool> Upload(Models.Component component)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:59561");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var response = await client.PostAsync("api/Packages", component, new JsonMediaTypeFormatter());
+
+                return response.IsSuccessStatusCode;
+            }
         }
     }
 }

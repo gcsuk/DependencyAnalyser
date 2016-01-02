@@ -101,6 +101,9 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\AnalysisService.cs" />
     <Compile Include="Services\ComponentsService.cs" />
+    <Compile Include="Utilities\BooleanInvisibileConverter.cs" />
+    <Compile Include="Utilities\BooleanVisibileConverter.cs" />
+    <Compile Include="Utilities\InverseBooleanConverter.cs" />
     <Compile Include="ViewModels\ComponentManager.cs" />
     <Compile Include="ViewModels\MainWindow.cs" />
     <Page Include="ComponentManager.xaml">

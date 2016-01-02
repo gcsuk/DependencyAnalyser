@@ -7,12 +7,24 @@ namespace DependencyAnalyser.ViewModels
 {
     public class MainWindow : INotifyPropertyChanged
     {
+        private bool _isLoading = true;
+        private string _targetDirectory = string.Empty;
+        private Models.Component _selectedComponent;
+
         public MainWindow()
         {
             Packages = new ObservableCollection<Models.Package>();
         }
 
-        private string _targetDirectory = string.Empty;
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged(nameof(IsLoading));
+            }
+        }
 
         public string TargetDirectory
         {
@@ -25,6 +37,16 @@ namespace DependencyAnalyser.ViewModels
         }
 
         public ObservableCollection<Models.Component> Components { get; set; }
+
+        public Models.Component SelectedComponent
+        {
+            get { return _selectedComponent; }
+            set
+            {
+                _selectedComponent = value;
+                OnPropertyChanged(nameof(SelectedComponent));
+            }
+        }
 
         public ObservableCollection<Models.Package> Packages { get; set; }
 

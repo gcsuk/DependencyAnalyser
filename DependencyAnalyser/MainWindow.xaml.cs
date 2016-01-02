@@ -27,9 +27,21 @@ namespace DependencyAnalyser
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            _vm.Components = new ObservableCollection<Models.Component>(_componentsService.GetList());
+            var components = _componentsService.GetList();
 
-            DataContext = _vm;
+            if (components == null)
+            {
+                System.Windows.MessageBox.Show("An error occured retrieving the component list. Restart the app and try again.", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                _vm.Components = new ObservableCollection<Models.Component>(components);
+
+                DataContext = _vm;
+            }
+
+            _vm.IsLoading = false;
         }
 
         private void Load_OnClick(object sender, RoutedEventArgs e)
@@ -69,9 +81,24 @@ namespace DependencyAnalyser
             }
         }
 
-        private void Upload_OnClick(object sender, RoutedEventArgs e)
+        private async void Upload_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            _vm.IsLoading = true;
+
+            _vm.SelectedComponent.Packages = _vm.Packages.ToList();
+
+            var uploadTask = await _analysisService.Upload(_vm.SelectedComponent);
+
+            if (uploadTask)
+            {
+                System.Windows.MessageBox.Show("Done!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Error. Try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            _vm.IsLoading = false;
         }
 
         private void ManageComponents_OnClick(object sender, RoutedEventArgs e)

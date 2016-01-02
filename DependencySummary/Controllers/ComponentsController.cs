@@ -10,17 +10,24 @@ namespace DependencySummary.Controllers
     public class ComponentsController : ApiController
     {
         // GET api/<controller>
-        public IEnumerable<ViewModels.Component> Get()
+        public HttpResponseMessage Get()
         {
-            using (var db = new Models.PackageContext())
+            try
             {
-                var components = db.Components.Select(c => new ViewModels.Component
+                using (var db = new Models.PackageContext())
                 {
-                    Id = c.Id,
-                    Name = c.Name
-                });
+                    var components = db.Components.Select(c => new ViewModels.Component
+                    {
+                        Id = c.Id,
+                        Name = c.Name
+                    });
 
-                return components.ToList();
+                    return Request.CreateResponse(HttpStatusCode.OK, components.ToList());
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -84,7 +91,7 @@ namespace DependencySummary.Controllers
         {
             try
             {
-                var newComponent = new Models.Component {Name = component.Name};
+                var newComponent = new Models.Component { Name = component.Name };
 
                 using (var db = new Models.PackageContext())
                 {
