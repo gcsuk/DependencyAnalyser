@@ -173,6 +173,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601020028137_InitialCreate.cs" />
+    <Compile Include="Migrations\201601020028137_InitialCreate.Designer.cs">
+      <DependentUpon>201601020028137_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601021222596_RefactoredForeignKeys.cs" />
+    <Compile Include="Migrations\201601021222596_RefactoredForeignKeys.Designer.cs">
+      <DependentUpon>201601021222596_RefactoredForeignKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Component.cs" />
     <Compile Include="Models\Package.cs" />
     <Compile Include="Models\PackageContext.cs" />
@@ -246,7 +255,14 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201601020028137_InitialCreate.resx">
+      <DependentUpon>201601020028137_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601021222596_RefactoredForeignKeys.resx">
+      <DependentUpon>201601021222596_RefactoredForeignKeys.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

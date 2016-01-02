@@ -21,7 +21,8 @@ namespace DependencySummary.Controllers
                         return Request.CreateResponse(HttpStatusCode.NotFound);
                     }
 
-                    var existingPackages = db.Components.Single(c => c.Id == component.Id).Packages;
+                    var existingPackages =
+                        db.Components.Include("Packages").Single(c => c.Id == component.Id).Packages;
 
                     if (existingPackages != null)
                     {

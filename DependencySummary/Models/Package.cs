@@ -15,5 +15,9 @@ namespace DependencySummary.Models
         public string TargetFramework { get; set; }
 
         public List<Project> Projects { get; set; }
+
+        public int ComponentId { get; set; }
+
+        public virtual Component Component { get; set; }
     }
 }
