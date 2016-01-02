@@ -1,29 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using DependencySummary.Services;
 
 namespace DependencySummary.Controllers
 {
     public class ComponentsController : ApiController
     {
+        private readonly ComponentService _componentService;
+
+        public ComponentsController()
+        {
+            _componentService = new ComponentService();
+        }
+
         // GET api/<controller>
         public HttpResponseMessage Get()
         {
             try
             {
-                using (var db = new Models.PackageContext())
+                var components = _componentService.GetList().Select(c => new ViewModels.Component
                 {
-                    var components = db.Components.Select(c => new ViewModels.Component
-                    {
-                        Id = c.Id,
-                        Name = c.Name
-                    });
+                    Id = c.Id,
+                    Name = c.Name
+                });
 
-                    return Request.CreateResponse(HttpStatusCode.OK, components.ToList());
-                }
+                return Request.CreateResponse(HttpStatusCode.OK, components.ToList());
             }
             catch (Exception ex)
             {
@@ -36,22 +40,18 @@ namespace DependencySummary.Controllers
         {
             try
             {
-                using (var db = new Models.PackageContext())
+                var component = _componentService.GetItem(id);
+
+                if (component == null)
                 {
-                    var component = db.Components.SingleOrDefault(c => c.Id == id);
-
-                    if (component == null)
-                    {
-                        return null;
-                    }
-
-                    return Request.CreateResponse(HttpStatusCode.OK, new ViewModels.Component
-                    {
-                        Id = component.Id,
-                        Name = component.Name
-                    });
-
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
                 }
+
+                return Request.CreateResponse(HttpStatusCode.OK, new ViewModels.Component
+                {
+                    Id = component.Id,
+                    Name = component.Name
+                });
             }
             catch (Exception ex)
             {
@@ -64,21 +64,11 @@ namespace DependencySummary.Controllers
         {
             try
             {
-                using (var db = new Models.PackageContext())
-                {
-                    var existingComponent = db.Components.SingleOrDefault(c => c.Id == component.Id);
+                var matchFound = _componentService.Update(component);
 
-                    if (existingComponent == null)
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NotFound);
-                    }
-
-                    existingComponent.Name = component.Name;
-
-                    db.SaveChanges();
-
-                    return Request.CreateResponse(HttpStatusCode.OK, existingComponent);
-                }
+                return !matchFound
+                    ? Request.CreateResponse(HttpStatusCode.NotFound)
+                    : Request.CreateResponse(HttpStatusCode.OK, component);
             }
             catch (Exception ex)
             {
@@ -91,16 +81,9 @@ namespace DependencySummary.Controllers
         {
             try
             {
-                var newComponent = new Models.Component { Name = component.Name };
+                component.Id = _componentService.Add(component);
 
-                using (var db = new Models.PackageContext())
-                {
-                    db.Components.Add(newComponent);
-
-                    db.SaveChanges();
-                }
-
-                return Request.CreateResponse(HttpStatusCode.OK, newComponent);
+                return Request.CreateResponse(HttpStatusCode.OK, component);
             }
             catch (Exception ex)
             {
@@ -113,12 +96,7 @@ namespace DependencySummary.Controllers
         {
             try
             {
-                using (var db = new Models.PackageContext())
-                {
-                    db.Components.Remove(db.Components.Single(c => c.Id == id));
-
-                    db.SaveChanges();
-                }
+                _componentService.Delete(id);
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
