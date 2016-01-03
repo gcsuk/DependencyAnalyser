@@ -12,8 +12,11 @@ namespace DependencySummary.Services
 
             using (var db = new PackageContext())
             {
+                var packageData = db.Packages.ToList();
+                var componentData = db.Components.ToList();
+
                 packages =
-                    db.Packages.GroupBy(p => p.Name)
+                    packageData.GroupBy(p => p.Name)
                         .Select(f => f.FirstOrDefault())
                         .Select(vm => new ViewModels.SummaryPackage
                         {
@@ -23,7 +26,7 @@ namespace DependencySummary.Services
                 packages.ForEach(package =>
                 {
                     package.Versions.AddRange(
-                        db.Packages.Where(v => v.Name == package.Name)
+                        packageData.Where(v => v.Name == package.Name)
                             .GroupBy(g => new {g.Version, g.TargetFramework})
                             .Select(f => f.FirstOrDefault())
                             .Select(version => new ViewModels.SummaryVersion
@@ -35,7 +38,7 @@ namespace DependencySummary.Services
                     package.Versions.ForEach(v =>
                     {
                         v.Components.AddRange(
-                            db.Packages.Where(
+                            packageData.Where(
                                 p =>
                                     p.Name == package.Name && p.Version == v.Version &&
                                     p.TargetFramework == v.TargetFramework)
@@ -44,7 +47,7 @@ namespace DependencySummary.Services
                                         new ViewModels.SummaryComponent
                                         {
                                             Id = c.ComponentId,
-                                            Name = db.Components.FirstOrDefault(component => c.ComponentId == component.Id).Name
+                                            Name = componentData.FirstOrDefault(component => c.ComponentId == component.Id)?.Name
                                         })
                                 .ToList()
                             );
