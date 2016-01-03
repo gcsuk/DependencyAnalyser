@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using DependencySummary.Services;
 
@@ -16,11 +17,11 @@ namespace DependencySummary.Controllers
         }
 
         // GET api/<controller>
-        public HttpResponseMessage Get()
+        public async Task<HttpResponseMessage> Get()
         {
             try
             {
-                var packages = _summaryService.GetSummary();
+                var packages = await Task.Run(() => _summaryService.GetSummary());
 
                 return Request.CreateResponse(HttpStatusCode.OK, packages);
             }
