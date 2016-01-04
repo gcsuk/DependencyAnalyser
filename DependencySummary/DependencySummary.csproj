@@ -196,6 +196,7 @@
     <Compile Include="ViewModels\Project.cs" />
     <Compile Include="ViewModels\SummaryComponent.cs" />
     <Compile Include="ViewModels\SummaryPackage.cs" />
+    <Compile Include="ViewModels\SummaryProject.cs" />
     <Compile Include="ViewModels\SummaryVersion.cs" />
   </ItemGroup>
   <ItemGroup>

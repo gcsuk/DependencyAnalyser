@@ -13,7 +13,7 @@ $.get("/api/Summary", function (data) {
             packageDisplay += "<div><a data-id=\"" + value.Id + "\" class=\"package\">" + value.Name + "</a>";
 
             if (value.VersionCount > 1) {
-                packageDisplay += " <span class=\"versionCount\">(" + value.VersionCount + " Versions)</span>";
+                packageDisplay += " <span class=\"versionCount\">(" + value.VersionCount + ")</span>";
             }
 
             packageDisplay += "</div>";
@@ -32,6 +32,7 @@ $("#packages").on("click", "a", function (e) {
 
     $("#versions").empty();
     $("#components").empty();
+    $("#projects").empty();
 
     var packageId = Number($(e.target).attr("data-id"));
 
@@ -54,6 +55,7 @@ $("#packages").on("click", "a", function (e) {
 $("#versions").on("click", "a", function (e) {
 
     $("#components").empty();
+    $("#projects").empty();
 
     var selectedPackage = Number($(e.target).attr("data-package"));
     var selectedVersion = $(e.target).attr("data-version");
@@ -65,9 +67,42 @@ $("#versions").on("click", "a", function (e) {
     $.each(summary, function (packageIndex, pack) {
         if (pack.Id === selectedPackage) {
             $.each(pack.Versions, function (versionIndex, version) {
-                if (version.Version === selectedVersion) {
+                if (version.Version === selectedVersion && version.TargetFramework === selectedFramework) {
                     $.each(version.Components, function(componentIndex, component) {
-                        $("#components").append("<div>" + component.Name + "</div>");
+                        $("#components").append("<div><a data-package=\"" + selectedPackage + "\" data-version=\"" + selectedVersion + "\" data-framework=\"" + selectedFramework + "\" data-component=\"" + component.Name + "\">" + component.Name + "</a></div>");
+                    });
+                    return false;
+                }
+            });
+            return false;
+        }
+    });
+
+});
+
+$("#components").on("click", "a", function (e) {
+
+    $("#projects").empty();
+
+    var selectedPackage = Number($(e.target).attr("data-package"));
+    var selectedVersion = $(e.target).attr("data-version");
+    var selectedFramework = $(e.target).attr("data-framework");
+    var selectedComponent = $(e.target).attr("data-component");
+
+    $("#components a").parent().removeClass("selected");
+    $("#components a[data-component='" + selectedComponent + "']").parent().addClass("selected");
+
+    $.each(summary, function (packageIndex, pack) {
+        if (pack.Id === selectedPackage) {
+            $.each(pack.Versions, function (versionIndex, version) {
+                if (version.Version === selectedVersion && version.TargetFramework === selectedFramework) {
+                    $.each(version.Components, function (componentIndex, component) {
+                        if (component.Name === selectedComponent) {
+                            $.each(component.Projects, function (projectIndex, project) {
+                                $("#projects").append("<div>" + project.Name + "</div>");
+                            });
+                            return false;
+                        }
                     });
                     return false;
                 }

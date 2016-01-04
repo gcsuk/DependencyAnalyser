@@ -30,5 +30,20 @@ namespace DependencySummary.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
+
+        // GET api/<controller>
+        public async Task<HttpResponseMessage> Get(int componentId, string packageName, string version, string targetFramework)
+        {
+            try
+            {
+                var packages = await Task.Run(() => _summaryService.GetComponentDetails(componentId, packageName, version, targetFramework));
+
+                return Request.CreateResponse(HttpStatusCode.OK, packages);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
     }
 }
