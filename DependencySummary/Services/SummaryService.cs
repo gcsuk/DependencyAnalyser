@@ -20,8 +20,11 @@ namespace DependencySummary.Services
                         .Select(f => f.FirstOrDefault())
                         .Select(vm => new ViewModels.SummaryPackage
                         {
+                            Id = vm.Id,
                             Name = vm.Name
-                        }).ToList();
+                        })
+                        .OrderBy(o =>  o.Name)
+                        .ToList();
 
                 packages.ForEach(package =>
                 {

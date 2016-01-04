@@ -15,3 +15,31 @@ select,
 textarea {
     max-width: 280px;
 }
+
+a {
+    cursor: pointer
+}
+
+.loading {
+    text-align: center
+}
+
+.summary {
+    
+}
+
+.packages {
+    border: solid 1px #000
+}
+
+.versions {
+    border: solid 1px #000
+}
+
+.components {
+    border: solid 1px #000
+}
+
+.versionCount {
+    font-weight: bold
+}
