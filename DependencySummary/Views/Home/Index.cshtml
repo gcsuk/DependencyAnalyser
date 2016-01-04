@@ -2,15 +2,28 @@
     <div id="loading" class="row loading">
         <img src="~/Content/loading.gif" alt="Loading" />
     </div>
-    <div id="summary" class="row" style="display: none">
-        <div id="packages" class="col-lg-6 packages">
-
+    <div id="content" class="hidden">
+        <div id="summaryHeader" class="row header">
+            <div class="col-lg-6 column">
+                Packages
+            </div>
+            <div class="col-lg-3 column">
+                Versions &amp; Frameworks
+            </div>
+            <div class="col-lg-3 column">
+                Components
+            </div>
         </div>
-        <div id="versions" class="col-lg-3 versions">
+        <div id="summary" class="row flex-container items">
+            <div id="packages" class="col-lg-6 column flex-item">
 
-        </div>
-        <div id="components" class="col-lg-3 components">
+            </div>
+            <div id="versions" class="col-lg-3 column flex-item">
 
+            </div>
+            <div id="components" class="col-lg-3 column flex-item">
+
+            </div>
         </div>
     </div>
 </div>

@@ -22,11 +22,8 @@ $.get("/api/Summary", function (data) {
 
         });
 
-
         $("#loading").hide();
-        $("#summary").show();
-
-
+        $("#content").removeClass("hidden");
     }
 
 });
@@ -38,15 +35,20 @@ $("#packages").on("click", "a", function (e) {
 
     var packageId = Number($(e.target).attr("data-id"));
 
+    $("#packages a").parent().removeClass("selected");
+    $("#packages a[data-id=" + packageId + "]").parent().addClass("selected");
+
     $.each(summary, function (packageIndex, pack) {
         if (pack.Id === packageId) {
             $.each(pack.Versions, function (versionIndex, version) {
-                $("#versions").append("<div><a data-package=\"" + packageId + "\" data-version=\"" + version.Version + "\">" + version.Version + " - " + version.TargetFramework + "</a></div>");
+                $("#versions").append("<div><a data-package=\"" + packageId + "\" data-version=\"" + version.Version + "\" data-framework=\"" + version.TargetFramework + "\">" + version.Version + " - " + version.TargetFramework + "</a></div>");
             });
             return false;
         }
     });
-    
+
+    window.scrollTo(0, 0);
+
 });
 
 $("#versions").on("click", "a", function (e) {
@@ -55,6 +57,10 @@ $("#versions").on("click", "a", function (e) {
 
     var selectedPackage = Number($(e.target).attr("data-package"));
     var selectedVersion = $(e.target).attr("data-version");
+    var selectedFramework = $(e.target).attr("data-framework");
+
+    $("#versions a").parent().removeClass("selected");
+    $("#versions a[data-version='" + selectedVersion + "'][data-framework='" + selectedFramework + "']").parent().addClass("selected");
 
     $.each(summary, function (packageIndex, pack) {
         if (pack.Id === selectedPackage) {

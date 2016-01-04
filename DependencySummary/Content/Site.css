@@ -17,29 +17,73 @@ textarea {
 }
 
 a {
-    cursor: pointer
+    cursor: pointer;
+}
+
+.hidden {
+    display: none
 }
 
 .loading {
-    text-align: center
+    text-align: center;
 }
 
 .summary {
-    
+    margin-top: 20px;
+    border-right: solid 1px #000000
 }
 
-.packages {
-    border: solid 1px #000
+.summary .column {
+    border-left: solid 1px #000000
 }
 
-.versions {
-    border: solid 1px #000
+.summary .header {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    border-top: solid 1px #000000;
+    border-bottom: solid 1px #000000
 }
 
-.components {
-    border: solid 1px #000
+.summary .items div {
+    border-bottom: solid 1px #000000;
+    padding: 10px 5px
 }
 
-.versionCount {
-    font-weight: bold
+.summary .items .versionCount {
+    font-weight: bold;
+}
+
+.summary .items .selected {
+    background-color: #008b8b
+}
+
+.summary .items .selected a {
+    color: #ffffff
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+}
+
+.flex-item:nth-child(1) {
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+}
+
+.flex-item:nth-child(2) {
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+}
+
+.flex-item:nth-child(3) {
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
 }
