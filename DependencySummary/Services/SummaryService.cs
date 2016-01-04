@@ -4,7 +4,7 @@ using DependencySummary.Models;
 
 namespace DependencySummary.Services
 {
-    public class SummaryService
+    public class SummaryService : ISummaryService
     {
         public IEnumerable<ViewModels.SummaryPackage> GetSummary()
         {

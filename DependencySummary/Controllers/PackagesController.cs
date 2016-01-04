@@ -8,11 +8,11 @@ namespace DependencySummary.Controllers
 {
     public class PackagesController : ApiController
     {
-        private readonly PackageService _packageService;
+        private readonly IPackageService _packageService;
 
-        public PackagesController()
+        public PackagesController(IPackageService packageService)
         {
-            _packageService = new PackageService();
+            _packageService = packageService;
         }
 
         // POST api/<controller>

@@ -9,11 +9,11 @@ namespace DependencySummary.Controllers
 {
     public class ComponentsController : ApiController
     {
-        private readonly ComponentService _componentService;
+        private readonly IComponentService _componentService;
 
-        public ComponentsController()
+        public ComponentsController(IComponentService componentService)
         {
-            _componentService = new ComponentService();
+            _componentService = componentService;
         }
 
         // GET api/<controller>

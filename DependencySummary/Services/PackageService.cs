@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DependencySummary.Services
 {
-    public class PackageService
+    public class PackageService : IPackageService
     {
         public bool Update(ViewModels.Component component)
         {

@@ -9,11 +9,11 @@ namespace DependencySummary.Controllers
 {
     public class SummaryController : ApiController
     {
-        private readonly SummaryService _summaryService;
+        private readonly ISummaryService _summaryService;
 
-        public SummaryController()
+        public SummaryController(ISummaryService summaryService)
         {
-            _summaryService = new SummaryService();
+            _summaryService = summaryService;
         }
 
         // GET api/<controller>

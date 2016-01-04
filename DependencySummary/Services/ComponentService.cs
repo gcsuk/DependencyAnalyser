@@ -4,7 +4,7 @@ using DependencySummary.Models;
 
 namespace DependencySummary.Services
 {
-    public class ComponentService
+    public class ComponentService : IComponentService
     {
         public IEnumerable<Component> GetList()
         {
