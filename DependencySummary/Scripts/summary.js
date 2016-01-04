@@ -69,7 +69,7 @@ $("#versions").on("click", "a", function (e) {
             $.each(pack.Versions, function (versionIndex, version) {
                 if (version.Version === selectedVersion && version.TargetFramework === selectedFramework) {
                     $.each(version.Components, function(componentIndex, component) {
-                        $("#components").append("<div><a data-package=\"" + selectedPackage + "\" data-version=\"" + selectedVersion + "\" data-framework=\"" + selectedFramework + "\" data-component=\"" + component.Name + "\">" + component.Name + "</a></div>");
+                        $("#components").append("<div><a data-package=\"" + selectedPackage + "\" data-version=\"" + selectedVersion + "\" data-framework=\"" + selectedFramework + "\" data-component=\"" + component.Name + "\">" + component.Name + "</a> <a href=\"/ComponentDetails/" + component.Id + "\" class=\"pull-right\">[Details]</a></div>");
                     });
                     return false;
                 }

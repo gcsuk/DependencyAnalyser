@@ -23,7 +23,7 @@ namespace DependencySummary.Services
                             Id = vm.Id,
                             Name = vm.Name
                         })
-                        .OrderBy(o =>  o.Name)
+                        .OrderBy(o => o.Name)
                         .ToList();
 
                 packages.ForEach(package =>
@@ -50,7 +50,9 @@ namespace DependencySummary.Services
                                         new ViewModels.SummaryComponent
                                         {
                                             Id = c.ComponentId,
-                                            Name = componentData.FirstOrDefault(component => c.ComponentId == component.Id)?.Name,
+                                            Name =
+                                                componentData.FirstOrDefault(component => c.ComponentId == component.Id)
+                                                    ?.Name,
                                             Projects = c.Projects.Select(pr => new ViewModels.SummaryProject
                                             {
                                                 Name = pr.Name
@@ -65,36 +67,30 @@ namespace DependencySummary.Services
             return packages;
         }
 
-        public IEnumerable<ViewModels.Component> GetComponentDetails(int componentId, string packageName, string version, string targetFramework)
+        public ViewModels.Component GetComponentDetails(int componentId)
         {
-            List<ViewModels.Component> packages;
-
             using (var db = new PackageContext())
             {
-                packages = db.Components
+                return db.Components
                     .Where(component => component.Id == componentId)
                     .Select(c => new ViewModels.Component
                     {
                         Id = c.Id,
                         Name = c.Name,
                         Packages =
-                            c.Packages.Where(
-                                package =>
-                                    package.Name == packageName && package.Version == version &&
-                                    package.TargetFramework == targetFramework).Select(p => new ViewModels.Package
-                                    {
-                                        Name = c.Name,
-                                        Version = p.Version,
-                                        TargetFramework = p.TargetFramework,
-                                        Projects = p.Projects.Select(pr => new ViewModels.Project
-                                        {
-                                            Name = pr.Name
-                                        }).ToList()
-                                    }).ToList()
-                    }).ToList();
+                            c.Packages.Select(p => new ViewModels.Package
+                            {
+                                Name = p.Name,
+                                Version = p.Version,
+                                TargetFramework = p.TargetFramework,
+                                Projects = p.Projects.Select(pr => new ViewModels.Project
+                                {
+                                    Name = pr.Name
+                                }).ToList()
+                            }).ToList()
+                    })
+                    .Single();
             }
-
-            return packages;
         }
     }
 }

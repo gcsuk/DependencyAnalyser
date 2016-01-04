@@ -1,0 +1,38 @@
+﻿@model int
+
+@{
+    ViewBag.Title = "Dependency Summary";
+}
+
+<h2></h2>
+
+<div class="container summary">
+    <div id="loading" class="row loading">
+        <img src="~/Content/loading.gif" alt="Loading"/>
+    </div>
+    <div id="content" class="hidden">
+        <div id="summaryHeader" class="row header">
+            <div class="col-lg-6 column">
+                Packages
+            </div>
+            <div class="col-lg-6 column">
+                Projects
+            </div>
+        </div>
+        <div id="summary" class="row flex-container items">
+            <div id="packages" class="col-lg-6 column flex-item">
+
+            </div>
+            <div id="projects" class="col-lg-6 column flex-item">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="id" value="@Model" />
+
+@section scripts
+{
+    <script src="~/Scripts/componentDetails.js"></script>
+}

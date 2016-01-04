@@ -32,11 +32,11 @@ namespace DependencySummary.Controllers
         }
 
         // GET api/<controller>
-        public async Task<HttpResponseMessage> Get(int componentId, string packageName, string version, string targetFramework)
+        public async Task<HttpResponseMessage> Get(int componentId)
         {
             try
             {
-                var packages = await Task.Run(() => _summaryService.GetComponentDetails(componentId, packageName, version, targetFramework));
+                var packages = await Task.Run(() => _summaryService.GetComponentDetails(componentId));
 
                 return Request.CreateResponse(HttpStatusCode.OK, packages);
             }
