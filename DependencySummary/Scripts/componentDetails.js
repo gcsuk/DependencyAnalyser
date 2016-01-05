@@ -6,8 +6,6 @@ $.get("/api/Summary?componentId=" + $("#id").val(), function (data) {
 
         packages = data.Packages;
 
-        $("h2").append(data.Name);
-
         var packageDisplay = "";
 
         $.each(packages, function (index, value) {
@@ -44,4 +42,8 @@ $("#packages").on("click", "a", function (e) {
 
     window.scrollTo(0, 0);
 
+});
+
+$("#componentList").change(function () {
+    window.location = "/ComponentDetails/" + $(this).val();
 });

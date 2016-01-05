@@ -90,3 +90,8 @@ a {
     flex: 0 1 auto;
     align-self: auto;
 }
+
+#componentList {
+    margin-top: 30px;
+    font-size: 18px
+}

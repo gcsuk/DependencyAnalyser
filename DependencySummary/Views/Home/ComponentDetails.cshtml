@@ -1,11 +1,15 @@
-﻿@model int
+﻿@model DependencySummary.ViewModels.ComponentDetails
 
 @{
     ViewBag.Title = "Dependency Summary";
 }
 
-<h2></h2>
-
+<select id="componentList">
+    @foreach (var component in Model.Components)
+    {
+        <option value="@component.Id" @(@component.Id == @Model.ComponentId ? "selected" : "")>@component.Name</option>
+    }
+</select>
 <div class="container summary">
     <div id="loading" class="row loading">
         <img src="~/Content/loading.gif" alt="Loading"/>
@@ -30,7 +34,7 @@
     </div>
 </div>
 
-<input type="hidden" id="id" value="@Model" />
+<input type="hidden" id="id" value="@Model.ComponentId" />
 
 @section scripts
 {
