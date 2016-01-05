@@ -37,7 +37,7 @@
             <Button Content="Manage Components" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Click="ManageComponents_OnClick" IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}" />
         </DockPanel>
         <DockPanel Background="LightBlue" Opacity="0.5" Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Column="0" Grid.Row="0" Visibility="{Binding IsLoading, Converter={StaticResource BooleanVisibileConverter}}">
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36">Uploading. Please Wait...</Label>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36">Processing. Please Wait...</Label>
         </DockPanel>
     </Grid>
 </controls:MetroWindow>

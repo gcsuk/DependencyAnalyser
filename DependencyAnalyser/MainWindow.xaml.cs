@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -44,13 +45,17 @@ namespace DependencyAnalyser
             _vm.IsLoading = false;
         }
 
-        private void Load_OnClick(object sender, RoutedEventArgs e)
+        private async void Load_OnClick(object sender, RoutedEventArgs e)
         {
+            _vm.IsLoading = true;
+
             _vm.Packages.Clear();
 
             try
             {
-                _analysisService.Analyse(_vm.TargetDirectory).ToList().ForEach(p => _vm.Packages.Add(p));
+                var packages = await Task.Run(() => _analysisService.Analyse(_vm.TargetDirectory));
+
+                packages.ToList().ForEach(p => _vm.Packages.Add(p));
             }
             catch (ArgumentException ex)
             {
@@ -67,6 +72,8 @@ namespace DependencyAnalyser
                 System.Windows.MessageBox.Show(ex.Message, "File Not Found", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
+
+            _vm.IsLoading = false;
         }
 
         private void Browse_OnClick(object sender, RoutedEventArgs e)
