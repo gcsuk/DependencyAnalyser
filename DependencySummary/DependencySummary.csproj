@@ -222,6 +222,11 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Help\ManageComponents1.png" />
+    <Content Include="Content\Help\ManageComponents2.png" />
+    <Content Include="Content\Help\LoadPackages1.png" />
+    <Content Include="Content\Help\LoadPackages2.png" />
+    <Content Include="Content\Help\LoadPackages3.png" />
     <Content Include="Content\loading.gif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -284,6 +289,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Views\Home\ComponentDetails.cshtml" />
+    <Content Include="Views\Home\Help.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201601020028137_InitialCreate.resx">

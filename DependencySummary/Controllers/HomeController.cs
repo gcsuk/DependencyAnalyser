@@ -28,5 +28,10 @@ namespace DependencySummary.Controllers
 
             return View("ComponentDetails", vm);
         }
+
+        public ActionResult Help()
+        {
+            return View();
+        }
     }
 }
