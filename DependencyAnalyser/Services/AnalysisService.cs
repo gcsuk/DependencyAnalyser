@@ -84,7 +84,7 @@ namespace DependencyAnalyser.Services
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:59561");
+                client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
