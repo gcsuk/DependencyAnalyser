@@ -32,7 +32,7 @@ $("#packages").on("click", "a", function (e) {
     $("#packages a[data-package='" + selectedPackage + "'][data-version='" + selectedVersion + "'][data-framework='" + selectedFramework + "']").parent().addClass("selected");
 
     $.each(packages, function (packageIndex, pack) {
-        if (pack.Name === selectedPackage) {
+        if (pack.Name === selectedPackage && pack.Version === selectedVersion && pack.TargetFramework === selectedFramework) {
             $.each(pack.Projects, function (projectIndex, project) {
                 $("#projects").append("<div>" + project.Name + "</div>");
             });
