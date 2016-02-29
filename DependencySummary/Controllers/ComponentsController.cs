@@ -90,11 +90,9 @@ namespace DependencySummary.Controllers
         {
             try
             {
-                var matchFound = _componentService.Update(component);
+                component.Id = _componentService.Add(component);
 
-                return !matchFound
-                    ? Request.CreateResponse(HttpStatusCode.NotFound)
-                    : Request.CreateResponse(HttpStatusCode.OK, component);
+                return Request.CreateResponse(HttpStatusCode.OK, component);
             }
             catch (Exception ex)
             {
@@ -102,14 +100,16 @@ namespace DependencySummary.Controllers
             }
         }
 
-        // PUT api/<controller>/5
+        // PUT api/<controller>
         public HttpResponseMessage Put([FromBody]ViewModels.Component component)
         {
             try
             {
-                component.Id = _componentService.Add(component);
+                var matchFound = _componentService.Update(component);
 
-                return Request.CreateResponse(HttpStatusCode.OK, component);
+                return !matchFound
+                    ? Request.CreateResponse(HttpStatusCode.NotFound)
+                    : Request.CreateResponse(HttpStatusCode.OK, component);
             }
             catch (Exception ex)
             {
