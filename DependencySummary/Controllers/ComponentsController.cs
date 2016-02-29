@@ -24,7 +24,8 @@ namespace DependencySummary.Controllers
                 var components = _componentService.GetList().Select(c => new ViewModels.Component
                 {
                     Id = c.Id,
-                    Name = c.Name
+                    Name = c.Name,
+                    TeamCityBuildId = c.TeamCityBuildId
                 });
 
                 return Request.CreateResponse(HttpStatusCode.OK, components.ToList());
