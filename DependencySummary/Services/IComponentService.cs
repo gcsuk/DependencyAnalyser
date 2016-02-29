@@ -7,6 +7,7 @@ namespace DependencySummary.Services
     {
         IEnumerable<Component> GetList();
         Component GetItem(int id);
+        Component GetItem(string teamCityBuildId);
         bool Update(ViewModels.Component component);
         int Add(ViewModels.Component component);
         void Delete(int id);

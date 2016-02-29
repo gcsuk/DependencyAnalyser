@@ -194,6 +194,10 @@
     <Compile Include="Migrations\201601021222596_RefactoredForeignKeys.Designer.cs">
       <DependentUpon>201601021222596_RefactoredForeignKeys.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602291652587_AddedTeamCityBuildId.cs" />
+    <Compile Include="Migrations\201602291652587_AddedTeamCityBuildId.Designer.cs">
+      <DependentUpon>201602291652587_AddedTeamCityBuildId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Component.cs" />
     <Compile Include="Models\Package.cs" />
@@ -298,6 +302,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601021222596_RefactoredForeignKeys.resx">
       <DependentUpon>201601021222596_RefactoredForeignKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602291652587_AddedTeamCityBuildId.resx">
+      <DependentUpon>201602291652587_AddedTeamCityBuildId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

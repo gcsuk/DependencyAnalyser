@@ -18,7 +18,15 @@ namespace DependencySummary.Services
         {
             using (var db = new PackageContext())
             {
-              return db.Components.SingleOrDefault(c => c.Id == id);
+                return db.Components.SingleOrDefault(c => c.Id == id);
+            }
+        }
+
+        public Component GetItem(string teamCityBuildId)
+        {
+            using (var db = new PackageContext())
+            {
+                return db.Components.SingleOrDefault(c => c.TeamCityBuildId == teamCityBuildId);
             }
         }
 
@@ -34,6 +42,7 @@ namespace DependencySummary.Services
                 }
 
                 existingComponent.Name = component.Name;
+                existingComponent.TeamCityBuildId = component.TeamCityBuildId;
 
                 db.SaveChanges();
 
@@ -45,7 +54,11 @@ namespace DependencySummary.Services
         {
             using (var db = new PackageContext())
             {
-                var newComponent = new Component { Name = component.Name };
+                var newComponent = new Component
+                {
+                    Name = component.Name,
+                    TeamCityBuildId = component.TeamCityBuildId
+                };
 
                 db.Components.Add(newComponent);
 

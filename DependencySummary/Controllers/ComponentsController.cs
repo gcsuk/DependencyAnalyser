@@ -50,7 +50,33 @@ namespace DependencySummary.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, new ViewModels.Component
                 {
                     Id = component.Id,
-                    Name = component.Name
+                    Name = component.Name,
+                    TeamCityBuildId = component.TeamCityBuildId
+                });
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        // GET api/<controller>/bt5
+        public HttpResponseMessage Get(string teamCityBuildId)
+        {
+            try
+            {
+                var component = _componentService.GetItem(teamCityBuildId);
+
+                if (component == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, new ViewModels.Component
+                {
+                    Id = component.Id,
+                    Name = component.Name,
+                    TeamCityBuildId = component.TeamCityBuildId
                 });
             }
             catch (Exception ex)
