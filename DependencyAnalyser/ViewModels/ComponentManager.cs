@@ -8,6 +8,7 @@ namespace DependencyAnalyser.ViewModels
     public class ComponentManager : INotifyPropertyChanged
     {
         private string _newComponentName = string.Empty;
+        private string _newComponentTeamCityBuildId = string.Empty;
         private ObservableCollection<Models.Component> _components = new ObservableCollection<Models.Component>();
 
         public string NewComponentName
@@ -17,6 +18,16 @@ namespace DependencyAnalyser.ViewModels
             {
                 _newComponentName = value;
                 OnPropertyChanged(nameof(NewComponentName));
+            }
+        }
+
+        public string NewComponentTeamCityBuildId
+        {
+            get { return _newComponentTeamCityBuildId; }
+            set
+            {
+                _newComponentTeamCityBuildId = value;
+                OnPropertyChanged(nameof(NewComponentTeamCityBuildId));
             }
         }
 

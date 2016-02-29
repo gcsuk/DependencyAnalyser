@@ -11,13 +11,16 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
             <RowDefinition />
             <RowDefinition Height="35" />
         </Grid.RowDefinitions>
         <Label Content="New Component Name: " VerticalAlignment="Center" />
-        <TextBox Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Text="{Binding NewComponentName}" />
+        <TextBox Grid.Column="1" VerticalAlignment="Center" Text="{Binding NewComponentName}" />
+        <Label Grid.Row="1" Content="New Component Build ID: " VerticalAlignment="Center" />
+        <TextBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Text="{Binding NewComponentTeamCityBuildId}" />
         <Button Grid.Row="0" Grid.Column="2" Content="Add" VerticalAlignment="Center" Margin="10,0" Click="Add_OnClick" />
-        <DataGrid x:Name="components" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" CanUserAddRows="False" DataContext="{Binding Components}" ItemsSource="{Binding}" CanUserSortColumns="False" SelectedItem="{Binding Id}" BorderBrush="DarkGray" BorderThickness="1">
+        <DataGrid x:Name="components" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" CanUserAddRows="False" DataContext="{Binding Components}" ItemsSource="{Binding}" CanUserSortColumns="False" SelectedItem="{Binding Id}" BorderBrush="DarkGray" BorderThickness="1">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Delete" Click="Delete_OnClick" />
@@ -26,9 +29,10 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Visibility="Collapsed" IsReadOnly="True" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Build ID" Binding="{Binding TeamCityBuildId}" />
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" HorizontalAlignment="Center">
             <Button Content="Save" Padding="30,0" Margin="5" Click="Save_OnClick" IsDefault="True" />
             <Button Content="Close" Padding="30,0" Margin="5" Click="Close_OnClick" IsCancel="True" />
         </StackPanel>

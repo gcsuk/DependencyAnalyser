@@ -53,7 +53,7 @@ namespace DependencyAnalyser.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var response = client.PutAsync("api/Components", component, new JsonMediaTypeFormatter()).Result;
+                var response = client.PostAsync("api/Components", component, new JsonMediaTypeFormatter()).Result;
 
                 return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<Models.Component>().Result : null;
             }
@@ -67,7 +67,7 @@ namespace DependencyAnalyser.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var response = client.PostAsync("api/Components", component, new JsonMediaTypeFormatter()).Result;
+                var response = client.PutAsync("api/Components", component, new JsonMediaTypeFormatter()).Result;
 
                 return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<Models.Component>().Result : null;
             }

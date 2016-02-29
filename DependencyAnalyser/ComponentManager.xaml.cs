@@ -33,9 +33,25 @@ namespace DependencyAnalyser
 
         private void Add_OnClick(object sender, RoutedEventArgs e)
         {
-            var newComponent = _componentsService.Add(new Models.Component {Name = _vm.NewComponentName});
+            if (string.IsNullOrEmpty(_vm.NewComponentName))
+            {
+                MessageBox.Show("Please specify a component name");
+            }
+            else if (string.IsNullOrEmpty(_vm.NewComponentTeamCityBuildId))
+            {
+                MessageBox.Show("Please specify a build ID");
+            }
+            else
+            {
+                var newComponent =
+                    _componentsService.Add(new Models.Component
+                    {
+                        Name = _vm.NewComponentName,
+                        TeamCityBuildId = _vm.NewComponentTeamCityBuildId
+                    });
 
-            _vm.Components.Add(newComponent);
+                _vm.Components.Add(newComponent);
+            }
         }
 
         private void Save_OnClick(object sender, RoutedEventArgs e)
