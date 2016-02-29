@@ -22,8 +22,8 @@ namespace DependencyAnalyser
             InitializeComponent();
 
             _vm = new ViewModels.MainWindow();
-            _analysisService = new Services.AnalysisService();
-            _componentsService = new Services.ComponentsService();
+            _analysisService = new Services.AnalysisService(Properties.Settings.Default.ApiUrl);
+            _componentsService = new Services.ComponentsService(Properties.Settings.Default.ApiUrl);
         }
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)

@@ -17,7 +17,7 @@ namespace DependencyAnalyser
 
         public ComponentManager()
         {
-            _componentsService = new Services.ComponentsService();
+            _componentsService = new Services.ComponentsService(Properties.Settings.Default.ApiUrl);
 
             _vm = new ViewModels.ComponentManager();
 

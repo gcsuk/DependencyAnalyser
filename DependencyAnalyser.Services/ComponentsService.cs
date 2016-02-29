@@ -8,11 +8,18 @@ namespace DependencyAnalyser.Services
 {
     public class ComponentsService
     {
+        private readonly string _apiUrl;
+
+        public ComponentsService(string apiUrl)
+        {
+            _apiUrl = apiUrl;
+        }
+
         public IEnumerable<Models.Component> GetList()
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                client.BaseAddress = new Uri(_apiUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -28,7 +35,7 @@ namespace DependencyAnalyser.Services
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                client.BaseAddress = new Uri(_apiUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -42,7 +49,7 @@ namespace DependencyAnalyser.Services
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                client.BaseAddress = new Uri(_apiUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -56,7 +63,7 @@ namespace DependencyAnalyser.Services
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                client.BaseAddress = new Uri(_apiUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -70,7 +77,7 @@ namespace DependencyAnalyser.Services
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                client.BaseAddress = new Uri(_apiUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

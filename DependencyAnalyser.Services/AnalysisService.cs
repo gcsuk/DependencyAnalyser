@@ -12,10 +12,12 @@ namespace DependencyAnalyser.Services
 {
     public class AnalysisService
     {
+        private readonly string _apiUrl;
         private readonly List<string> _fileList;
 
-        public AnalysisService()
+        public AnalysisService(string apiUrl)
         {
+            _apiUrl = apiUrl;
             _fileList = new List<string>();
         }
 
@@ -31,18 +33,23 @@ namespace DependencyAnalyser.Services
                 {
                     var existingPackage = packages.SingleOrDefault(f => f.ToString() == assemblyPackage.ToString());
 
-                    var projectPathDirectories = Path.GetDirectoryName(packageFile).Split(new[] {Path.DirectorySeparatorChar}, StringSplitOptions.None);
+                    var directoryName = Path.GetDirectoryName(packageFile);
 
-                    var projectName = projectPathDirectories[projectPathDirectories.Length - 1];
+                    if (directoryName != null)
+                    {
+                        var projectPathDirectories = directoryName.Split(new[] {Path.DirectorySeparatorChar}, StringSplitOptions.None);
 
-                    if (existingPackage == null)
-                    {
-                        assemblyPackage.Projects.Add(new Models.Project {Name = projectName});
-                        packages.Add(assemblyPackage);
-                    }
-                    else
-                    {
-                        existingPackage.Projects.Add(new Models.Project { Name = projectName });
+                        var projectName = projectPathDirectories[projectPathDirectories.Length - 1];
+
+                        if (existingPackage == null)
+                        {
+                            assemblyPackage.Projects.Add(new Models.Project {Name = projectName});
+                            packages.Add(assemblyPackage);
+                        }
+                        else
+                        {
+                            existingPackage.Projects.Add(new Models.Project { Name = projectName });
+                        }
                     }
                 }
             }
@@ -84,7 +91,7 @@ namespace DependencyAnalyser.Services
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Properties.Settings.Default.ApiUrl);
+                client.BaseAddress = new Uri(_apiUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

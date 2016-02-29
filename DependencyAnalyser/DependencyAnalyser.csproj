@@ -28,12 +28,13 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Content\Icon.ico</ApplicationIcon>
@@ -95,12 +96,7 @@
     <Compile Include="ComponentManager.xaml.cs">
       <DependentUpon>ComponentManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Component.cs" />
-    <Compile Include="Models\Package.cs" />
-    <Compile Include="Models\Project.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Services\AnalysisService.cs" />
-    <Compile Include="Services\ComponentsService.cs" />
     <Compile Include="Utilities\BooleanInvisibileConverter.cs" />
     <Compile Include="Utilities\BooleanVisibileConverter.cs" />
     <Compile Include="Utilities\InverseBooleanConverter.cs" />
@@ -154,7 +150,16 @@
   <ItemGroup>
     <Resource Include="Content\Icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DependencyAnalyser.Models\DependencyAnalyser.Models.csproj">
+      <Project>{807e8ace-0afd-45d6-a5d3-e6e231a1757e}</Project>
+      <Name>DependencyAnalyser.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DependencyAnalyser.Services\DependencyAnalyser.Services.csproj">
+      <Project>{668cbdfe-db1b-41d3-9cf7-05d5f1f8a495}</Project>
+      <Name>DependencyAnalyser.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
