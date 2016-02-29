@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 
 namespace DependencyAnalyser.Services
 {
-    public class ComponentsService
+    public class ComponentsService : IComponentsService
     {
         private readonly string _apiUrl;
 

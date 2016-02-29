@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace DependencyAnalyser.Services
 {
-    public class AnalysisService
+    public class AnalysisService : IAnalysisService
     {
         private readonly string _apiUrl;
         private readonly List<string> _fileList;
