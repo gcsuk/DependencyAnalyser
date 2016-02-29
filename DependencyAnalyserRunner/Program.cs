@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using DependencyAnalyser.Models;
 
 namespace DependencyAnalyser
@@ -32,6 +31,7 @@ namespace DependencyAnalyser
             }
 
 #if DEBUG
+            Console.WriteLine();
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
 #endif
@@ -44,19 +44,47 @@ namespace DependencyAnalyser
             _componentsService = new Services.ComponentsService(Properties.Settings.Default.ApiUrl);
         }
 
-        private async void Execute(Args args)
+        private void Execute(Args args)
         {
             try
             {
+                // Get the component to update
                 var component = _componentsService.GetItem(args.BuildId);
 
-                var packages = await Task.Run(() => _analysisService.Analyse(args.BuildRoot));
+                // Get the existing package list for the component
+                var packages = _analysisService.Analyse(args.BuildRoot);
 
+                // Enumerate the list and assign to the retrieved component
                 component.Packages = packages.ToList();
 
-                _analysisService.Upload(component).GetAwaiter().GetResult();
+                // Get all of the packages with multiple versions
+                var duplicatedPackages = component.Packages.GroupBy(p => p.Name).Where(grp => grp.Count() > 1).Select(dp => new { Name = dp.Key }).ToList();
 
-                Console.WriteLine("Packages processed successfully.");
+                // If there are duplicates. Consolidation is needed so list the packages to the console and exit
+                if (duplicatedPackages.Any())
+                {
+                    foreach (var package in duplicatedPackages)
+                    {
+                        Console.WriteLine($"NuGet consolidation issue: {package.Name}");
+
+                        foreach (var pack in component.Packages.Where(p => p.Name == package.Name))
+                        {
+                            Console.WriteLine($"\t{pack.Version} ({pack.TargetFramework})");
+
+                            foreach (var project in pack.Projects)
+                            {
+                                Console.WriteLine($"\t\tProject: {project.Name}");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // All packages are distinct so update the database.
+                    _analysisService.Upload(component).GetAwaiter().GetResult();
+
+                    Console.WriteLine("Packages processed successfully.");
+                }
             }
             catch (Exception ex)
             {
