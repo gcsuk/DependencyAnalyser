@@ -10,7 +10,7 @@ namespace DependencyAnalyser
     /// </summary>
     public partial class ComponentManager
     {
-        private readonly Services.ComponentsService _componentsService;
+        private readonly Services.IComponentsService _componentsService;
         private readonly ViewModels.ComponentManager _vm;
 
         public IEnumerable<Models.Component> Components => _vm.Components;

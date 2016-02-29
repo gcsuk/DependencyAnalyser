@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="AnalysisService.cs" />
     <Compile Include="ComponentsService.cs" />
+    <Compile Include="IAnalysisService.cs" />
+    <Compile Include="IComponentsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,8 +14,8 @@ namespace DependencyAnalyser
     public partial class MainWindow
     {
         private readonly ViewModels.MainWindow _vm;
-        private readonly Services.AnalysisService _analysisService;
-        private readonly Services.ComponentsService _componentsService;
+        private readonly Services.IAnalysisService _analysisService;
+        private readonly Services.IComponentsService _componentsService;
 
         public MainWindow()
         {
