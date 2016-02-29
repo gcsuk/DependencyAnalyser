@@ -45,6 +45,20 @@ namespace DependencyAnalyser.Services
             }
         }
 
+        public Models.Component GetItem(string teamCityBuildId)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_apiUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var response = client.GetAsync($"api/Components?teamCityBuildId={teamCityBuildId}").Result;
+
+                return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<Models.Component>().Result : null;
+            }
+        }
+
         public Models.Component Add(Models.Component component)
         {
             using (var client = new HttpClient())
