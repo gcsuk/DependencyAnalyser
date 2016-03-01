@@ -81,11 +81,24 @@ namespace DependencyAnalyser
         {
             try
             {
+                Console.Write($"Getting component details for {args.BuildId}...");
+
                 // Get the component to update
                 var component = _componentsService.GetItem(args.BuildId);
 
+                if (component == null)
+                {
+                    Console.WriteLine("The specified component was not found. Data will not be uploaded but a aummary will still be created for the build log.");
+                    component = new Component {Name = args.ProjectName};
+                }
+
+                Console.WriteLine("Done");
+                Console.Write($"Getting package details for {args.BuildRoot}...");
+
                 // Get the existing package list for the component and assign to the retrieved component
                 component.Packages = _analysisService.Analyse(args.BuildRoot).ToList();
+
+                Console.WriteLine("Done");
 
                 var isConsolidated = true;
 
@@ -96,7 +109,7 @@ namespace DependencyAnalyser
                 
                 if (isConsolidated)
                 {
-                    if (args.UploadResults)
+                    if (args.UploadResults && component.Id > 0)
                     {
                         _analysisService.Upload(component).GetAwaiter().GetResult();
 
@@ -123,11 +136,15 @@ namespace DependencyAnalyser
 
         private bool ProcessConsolidation(IEnumerable<Package> packages, ConsolidationLevel consolidationLevel)
         {
+            Console.WriteLine($"Processing consolidation data.");
+
             var duplicateItems =
                 packages.GroupBy(p => p.Name)
                     .Where(grp => grp.Count() > 1)
                     .Select(dp => new {dp.Key})
                     .ToList();
+
+            Console.WriteLine($"{duplicateItems.Count} NuGet packages found with multiple versions/frameworks.");
 
             // If there are duplicates. Consolidation is needed so list the packages to the console and exit
             if (duplicateItems.Any())

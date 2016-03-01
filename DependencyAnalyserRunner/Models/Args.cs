@@ -10,7 +10,7 @@
         public bool UploadResults { get; set; }
         public override string ToString()
         {
-            return $"{ProjectName} {BuildId} {BuildRoot} {ConsolidationLevel}";
+            return $"{ProjectName} {BuildId} {BuildRoot} {ConsolidationLevel} {ConsolidationEnforced} {UploadResults}";
         }
     }
 }
