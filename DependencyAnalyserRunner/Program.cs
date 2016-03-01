@@ -31,15 +31,17 @@ namespace DependencyAnalyser
                 Console.WriteLine();
                 Console.WriteLine("Consolidation Enforcement: Set to true if you want Team City to fail a build if packages are not consolidated. This is ignored if Consolidation Level is set to None.");
                 Console.WriteLine();
+                Console.WriteLine("Upload Results: Set to true if you want to upload package data to Dependency Summary API.");
+                Console.WriteLine();
                 Console.WriteLine("Press any key to close...");
                 Console.ReadKey();
 
                 Environment.Exit(0);
             }
 
-            if (args.Length < 5)
+            if (args.Length < 6)
             {
-                Console.WriteLine("Invalid number of arguments. Please supply Build ID, Project Name, Build Root, Consolidation Level and Consolidation Enforced.");
+                Console.WriteLine("Invalid number of arguments. Please supply Build ID, Project Name, Build Root, Consolidation Level, Consolidation Enforced flag and Upload Results flag.");
 #if !DEBUG
                 Environment.Exit(1);
 #endif
@@ -52,7 +54,8 @@ namespace DependencyAnalyser
                     ProjectName = args[1],
                     BuildRoot = args[2],
                     ConsolidationLevel = (ConsolidationLevel) Convert.ToInt32(args[3]),
-                    ConsolidationEnforced = Convert.ToBoolean(args[4])
+                    ConsolidationEnforced = Convert.ToBoolean(args[4]),
+                    UploadResults = Convert.ToBoolean(args[5])
                 };
 
                 Console.WriteLine($"Arguments: {arguments}");
@@ -93,9 +96,16 @@ namespace DependencyAnalyser
                 
                 if (isConsolidated)
                 {
-                    _analysisService.Upload(component).GetAwaiter().GetResult();
+                    if (args.UploadResults)
+                    {
+                        _analysisService.Upload(component).GetAwaiter().GetResult();
 
-                    Console.WriteLine("Packages processed and updated successfully.");
+                        Console.WriteLine("Packages processed and updated successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Packages processed successfully.");
+                    }
                 }
                 else if (args.ConsolidationEnforced)
                 {
