@@ -8,6 +8,7 @@
         public ConsolidationLevel ConsolidationLevel { get; set; }
         public bool ConsolidationEnforced { get; set; }
         public bool UploadResults { get; set; }
+        public bool MaskExceptions { get; set; }
         public override string ToString()
         {
             return $"{ProjectName} {BuildId} {BuildRoot} {ConsolidationLevel} {ConsolidationEnforced} {UploadResults}";

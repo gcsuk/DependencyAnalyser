@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DependencySummary.Models
@@ -15,6 +16,8 @@ namespace DependencySummary.Models
         public string TargetFramework { get; set; }
 
         public List<Project> Projects { get; set; }
+
+        public DateTime? LastUpdated { get; set; } = DateTime.Now;
 
         public int ComponentId { get; set; }
 

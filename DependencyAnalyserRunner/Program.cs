@@ -58,6 +58,12 @@ namespace DependencyAnalyser
                     UploadResults = Convert.ToBoolean(args[5])
                 };
 
+                // Hidden feature that if an extra true is passed then exceptions will not be thrown
+                if (args.Length > 6)
+                {
+                    arguments.MaskExceptions = Convert.ToBoolean(args[6]);
+                }
+
                 Console.WriteLine($"Arguments: {arguments}");
 
                 new Program().Execute(arguments);
@@ -128,8 +134,13 @@ namespace DependencyAnalyser
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine(ex.InnerException.Message);
+                }
 #if !DEBUG
-                Environment.Exit(1);
+                Environment.Exit(args.MaskExceptions ? 0 : 1);
 #endif
             }
         }
