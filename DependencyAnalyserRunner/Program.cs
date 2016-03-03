@@ -94,7 +94,7 @@ namespace DependencyAnalyser
 
                 if (component == null)
                 {
-                    Console.WriteLine("The specified component was not found. Data will not be uploaded but a aummary will still be created for the build log.");
+                    Console.WriteLine("The specified component was not found. Data will not be uploaded but a summary will still be created for the build log.");
                     component = new Component {Name = args.ProjectName};
                 }
 
