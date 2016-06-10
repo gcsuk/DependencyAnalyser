@@ -189,7 +189,7 @@ namespace DependencyAnalyser
                                     {
                                         foreach (var project in package.Projects)
                                         {
-                                            Console.WriteLine($"\t\tProject: {project.Name}");
+                                            Console.WriteLine($"\t\tProject: {project.Name} (Path: {project.Path})");
                                         }
                                     }
                                 }
@@ -225,7 +225,7 @@ namespace DependencyAnalyser
                                     {
                                         foreach (var project in package.Projects)
                                         {
-                                            Console.WriteLine($"\t\tProject: {project.Name}");
+                                            Console.WriteLine($"\t\tProject: {project.Name} (Path: {project.Path})");
                                         }
                                     }
                                 }
@@ -246,7 +246,7 @@ namespace DependencyAnalyser
 
                                 foreach (var project in package.Projects)
                                 {
-                                    Console.WriteLine($"\t\tProject: {project.Name}");
+                                    Console.WriteLine($"\t\tProject: {project.Name} (Path: {project.Path})");
                                 }
                             }
                         }
