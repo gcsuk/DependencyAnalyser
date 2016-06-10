@@ -43,12 +43,12 @@ namespace DependencyAnalyser.Services
 
                         if (existingPackage == null)
                         {
-                            assemblyPackage.Projects.Add(new Models.Project {Name = projectName});
+                            assemblyPackage.Projects.Add(new Models.Project {Name = projectName, Path = directoryName});
                             packages.Add(assemblyPackage);
                         }
                         else
                         {
-                            existingPackage.Projects.Add(new Models.Project { Name = projectName });
+                            existingPackage.Projects.Add(new Models.Project { Name = projectName, Path = directoryName });
                         }
                     }
                 }
